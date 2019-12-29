@@ -1,0 +1,39 @@
+{
+    "name": "generator-sabrina",
+    "version": "0.0.1",
+    "description": "a personal yeoman generator",
+    "files": [
+        "generators",
+        "utils"
+    ],
+    "keywords": [
+        "yeoman-generator",
+        "generator",
+        "yeoman"
+    ],
+    "scripts": {
+        "build": "rm -rf dest && yo sabrina dest",
+        "debug": "node --inspect-brk ~/.nvm/versions/node/v10.15.3/bin/yo sabrina",
+        "deploy": "npm publish --registry http://registry.npmjs.org",
+        "ejs": "node _toEjs.js",
+        "eslint": "eslint --fix ."
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "yeoman-generator": "^4.0.1",
+        "yosay": "^2.0.2"
+    },
+    "devDependencies": {
+        "eslint": "^6.8.0",
+        "eslint-config-prettier": "^6.9.0",
+        "eslint-plugin-prettier": "^3.1.2",
+        "husky": "^3.1.0",
+        "prettier": "^1.19.1"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm run eslint"
+        }
+    }
+}

@@ -1,0 +1,11 @@
+const gulp = require('gulp');
+const beautify = require('gulp-jsbeautifier');
+
+gulp.task('beautify', () => {
+    return gulp.src(['./*.css', './*.html', './*.js'])
+        .pipe(beautify())
+        .pipe(gulp.dest('./dist'))
+});
+
+// gulp.series gulp.parallel
+gulp.task('default', gulp.series('beautify'));

@@ -1,0 +1,31 @@
+// rollup.config.js
+import commonjs from 'rollup-plugin-commonjs';
+import nodeResolve from 'rollup-plugin-node-resolve';
+import replace from 'rollup-plugin-replace';
+import json from 'rollup-plugin-json';
+<%_ if (typescript) { _%>
+import typescript from 'rollup-plugin-typescript2';
+<%_ } _%>
+
+export default {
+    input: './src/index.ts',
+    output: {
+        file: './dist/index.js',
+        format: 'umd', // amd, cjs, es, iife, umd
+        name: 'TEST'
+    },
+    plugins: [
+        json(),
+        nodeResolve(),
+        commonjs(),
+        <%_ if (typescript) { _%>
+        typescript({
+            tsconfig: 'tsconfig.json'
+        }),
+        <%_ } _%>
+        replace({
+            'process.env.NODE_ENV': JSON.stringify('production')
+        })
+    ],
+    external: []
+};

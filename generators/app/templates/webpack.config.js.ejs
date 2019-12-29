@@ -1,0 +1,57 @@
+const path = require('path');
+<%_ if (htmlWebpackPlugin) { _%>
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+<%_ } _%>
+
+module.exports = {
+    mode: 'development',
+    entry: './src/index.js',
+    output: {
+        filename: 'main.js',
+        path: path.resolve(__dirname, 'dist')
+    },
+    plugins: [
+        <%_ if (htmlWebpackPlugin) { _%>
+        new HtmlWebpackPlugin({
+            template: './views/index.html'
+        }),
+        <%_ } _%>
+    ],
+    <%_ if (devServer) { _%>
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        useLocalIp: true,
+        host: '0.0.0.0',
+        port: 9000
+    },
+    <%_ } _%>
+    module: {
+        rules: [
+            <%_ if (babel) { _%>
+            {
+                test: /\.m?js$/,
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        babelrc: true,
+                        extends: path.join(__dirname + '/.babelrc'),
+                        cacheDirectory: true
+                    }
+                }
+            },
+            <%_ } _%>
+            <%_ if (scss) { _%>
+            {
+                test: /\.s?css$/,
+                use: [
+                    "style-loader", // 将 JS 字符串生成为 style 节点
+                    "css-loader", // 将 CSS 转化成 CommonJS 模块
+                    "sass-loader" // 将 Sass 编译成 CSS，默认使用 Node Sass
+                ]
+            }
+            <%_ } _%>
+        ]
+    },
+};

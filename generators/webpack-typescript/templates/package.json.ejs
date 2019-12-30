@@ -5,15 +5,23 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.js --open",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "eslint": "eslint src --ext .ts --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.13.0",
+    "@typescript-eslint/parser": "^2.13.0",
     "css-loader": "^3.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^3.1.0",
     "node-sass": "^4.12.0",
+    "prettier": "^1.19.1",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "ts-loader": "^6.2.1",
@@ -25,5 +33,10 @@
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run eslint"
+    }
   }
 }
